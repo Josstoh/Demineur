@@ -4,7 +4,16 @@
  * and open the template in the editor.
  */
 
-package demineur;
+package vue_controleur;
+
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
+import modele.*;
 
 /**
  *
@@ -12,16 +21,60 @@ package demineur;
  */
 public class FenetreDemineur extends javax.swing.JFrame {
     
+    private final int longueur = 10;
+    private final int largeur = 10;
+    private final int nbBombe = 10;
     
-    
+    private Grille grille;
+    //private Grille grille;
     
     /**
      * Creates new form FenetreDemineur
      */
     public FenetreDemineur() {
+       grille = new Grille(longueur, largeur, nbBombe);
         initComponents();
-    }
+        jPanel1.setLayout(new GridLayout(longueur, largeur));
+        
+        int lo, la = -1;
+        for(int i = 0; i < longueur*largeur; i++) {
+            lo = i%longueur;
+            if(lo == 0)
+                la++;
+            CaseVue j = new CaseVue(lo, la);
+            j.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
+            j.setBackground(Color.LIGHT_GRAY);
+            j.addMouseListener(new MouseListener() {
 
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    System.out.println(((CaseVue)e.getComponent()).coord_x);
+                    System.out.println(((CaseVue)e.getComponent()).coord_y);
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    ((CaseVue)e.getComponent()).setBackground(Color.GRAY);
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    ((CaseVue)e.getComponent()).setBackground(Color.LIGHT_GRAY);
+                }
+            });
+            jPanel1.add(j);
+        }
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
