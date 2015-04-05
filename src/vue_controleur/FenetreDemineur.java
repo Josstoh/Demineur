@@ -6,11 +6,9 @@
 
 package vue_controleur;
 
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 import modele.*;
@@ -43,13 +41,13 @@ public class FenetreDemineur extends javax.swing.JFrame {
                 la++;
             CaseVue j = new CaseVue(lo, la);
             j.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
-            j.setBackground(Color.LIGHT_GRAY);
+            //j.setBackground(Color.LIGHT_GRAY);
             j.addMouseListener(new MouseListener() {
 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    System.out.println(((CaseVue)e.getComponent()).coord_x);
-                    System.out.println(((CaseVue)e.getComponent()).coord_y);
+                    CaseVue c = (CaseVue)e.getComponent();
+                    grille.revelerCase(c.coord_x, c.coord_y);
                 }
 
                 @Override
@@ -62,19 +60,18 @@ public class FenetreDemineur extends javax.swing.JFrame {
 
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    ((CaseVue)e.getComponent()).setBackground(Color.GRAY);
+                   
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    ((CaseVue)e.getComponent()).setBackground(Color.LIGHT_GRAY);
+                    
                 }
             });
+            grille.cases[lo][la].addObserver(j);
             jPanel1.add(j);
-        }
-        
     }
-    
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

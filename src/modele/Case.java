@@ -1,8 +1,10 @@
 package modele;
 
+import java.util.Observable;
+
 
 enum EtatCase {DRAPEAU, CACHEE, REVELEE, INTEROGATION};
-public class Case {
+public class Case  extends Observable{
 
   private int valeur;
 
@@ -19,16 +21,13 @@ public class Case {
       this.voisins = voisins;
   }
 
-  public void Case() {
-      
+  public Case() {
+      valeur = 0;
+      etat = EtatCase.CACHEE;
   }
 
     public int getValeur() {
         return valeur;
-    }
-
-    public EtatCase getEtat() {
-        return etat;
     }
 
     public void setValeur(int valeur) {
@@ -37,6 +36,23 @@ public class Case {
 
     public void setEtat(EtatCase etat) {
         this.etat = etat;
+        setChanged();
+        notifyObservers();
     }
-
+    
+    public boolean isCachee() {
+        return etat == EtatCase.CACHEE;
+    }
+    
+    public boolean isFalged() {
+        return etat == EtatCase.DRAPEAU;
+    }
+    
+    public boolean isQuestioned() {
+        return etat == EtatCase.INTEROGATION;
+    }
+    
+    public boolean isRevelee() {
+        return etat == EtatCase.REVELEE;
+    }
 }

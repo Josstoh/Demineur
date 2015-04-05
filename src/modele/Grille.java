@@ -1,13 +1,11 @@
 package modele;
 
-import java.awt.List;
 import java.util.ArrayList;
-import java.util.Observable;
 import java.util.Random;
 
 
 
-public class Grille extends Observable {
+public class Grille {
 
   protected int longueur;
   protected int largeur;
@@ -36,8 +34,6 @@ public class Grille extends Observable {
       for(int i = 0; i < longueur; i++) {
           for(int j = 0; j < largeur; j++) {
               cases[i][j] = new Case();
-              cases[i][j].setEtat(EtatCase.CACHEE);
-              cases[i][j].setValeur(0);
           }
       }
   }
@@ -170,7 +166,7 @@ public class Grille extends Observable {
   
   public boolean revelerCase(int x, int y) {
       Case c = cases[x][y];
-      if(c.getEtat() == EtatCase.CACHEE) {
+      if(c.isCachee()) {
           c.setEtat(EtatCase.REVELEE);
           //S'il y'a une bombe sur la case
           if(c.getValeur() == -1)
@@ -178,11 +174,11 @@ public class Grille extends Observable {
           if(c.getValeur() == 0)
               revelerEnCascade(c);
         }
-    return false;
+        return false;
   }
 
   public void revelerEnCascade(Case c) {
-      if(c.getEtat() == EtatCase.REVELEE)
+      if(c.isRevelee())
           return;
       if(c.getValeur() != 0) {
           c.setEtat(EtatCase.REVELEE);
@@ -192,7 +188,7 @@ public class Grille extends Observable {
           Case[] v = c.getVoisins();
           for (Case v1 : v) {
               revelerEnCascade(v1);
-          }
-      }
-  }
+            }
+        }
+    }
 }
