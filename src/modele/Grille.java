@@ -95,12 +95,6 @@ public class Grille extends Observable {
       }
   }
 
-  public boolean revelerCase(int x, int y) {
-  return false;
-  }
-
-  public void revelerEnCascade(int x, int y) {
-  }
 
   public void setVoisins() {
       //pour toutes les cases sauf les bords
@@ -173,5 +167,32 @@ public class Grille extends Observable {
           return false;
       return !(y < 0 || y >= largeur);
   }
+  
+  public boolean revelerCase(int x, int y) {
+      Case c = cases[x][y];
+      if(c.getEtat() == EtatCase.CACHEE) {
+          c.setEtat(EtatCase.REVELEE);
+          //S'il y'a une bombe sur la case
+          if(c.getValeur() == -1)
+              return true;
+          if(c.getValeur() == 0)
+              revelerEnCascade(c);
+        }
+    return false;
+  }
 
+  public void revelerEnCascade(Case c) {
+      if(c.getEtat() == EtatCase.REVELEE)
+          return;
+      if(c.getValeur() != 0) {
+          c.setEtat(EtatCase.REVELEE);
+          return;
+      }
+      if(c.getValeur() == 0) {
+          Case[] v = c.getVoisins();
+          for (Case v1 : v) {
+              revelerEnCascade(v1);
+          }
+      }
+  }
 }
