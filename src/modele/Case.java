@@ -12,10 +12,31 @@ public class Case {
 
   
   public Case[] getVoisins() {
-  return null;
+    return null;
+  }
+
+  public void setVoisins(Case[] voisins) {
+      this.voisins = voisins;
   }
 
   public void Case() {
+      
   }
-//soudrjtldrhjnd;khnd;khnb
+
+    public int getValeur() {
+        return valeur;
+    }
+
+    public EtatCase getEtat() {
+        return etat;
+    }
+
+    public void setValeur(int valeur) {
+        this.valeur = valeur;
+    }
+
+    public void setEtat(EtatCase etat) {
+        this.etat = etat;
+    }
+
 }
