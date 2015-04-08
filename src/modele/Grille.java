@@ -7,15 +7,27 @@ import java.util.Random;
 
 public class Grille {
 
-  protected int longueur;
-  protected int largeur;
-  protected int nbBombe;
+  private int longueur;
+  private int largeur;
+  private int nbBombe;
 
     /**
    * 
    * @element-type Case
    */
   public Case cases[][];
+
+    public int getLongueur() {
+        return longueur;
+    }
+
+    public int getLargeur() {
+        return largeur;
+    }
+
+    public int getNbBombe() {
+        return nbBombe;
+    }
 
   public Grille(int longueur, int largeur, int nbBombes) {
       this.longueur = longueur;

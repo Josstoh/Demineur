@@ -19,19 +19,31 @@ import modele.*;
  */
 public class FenetreDemineur extends javax.swing.JFrame {
     
-    private final int longueur = 10;
-    private final int largeur = 10;
-    private final int nbBombe = 10;
+    private OptionsFrame optionsFrame;
     
-    private Grille grille;
-    //private Grille grille;
+    public JeuDeDemineur jeu;
     
     /**
      * Creates new form FenetreDemineur
      */
     public FenetreDemineur() {
-       grille = new Grille(longueur, largeur, nbBombe);
+        jeu = new JeuDeDemineur();
+        optionsFrame = new OptionsFrame(this, jeu.options);
+
         initComponents();
+        initCasesVue();
+    }
+    
+    public void resetVue() {
+        jPanel1.removeAll();
+        initCasesVue();
+        jPanel1.updateUI();
+        pack();
+    }
+    
+    private void initCasesVue() {
+        int longueur = jeu.grille.getLongueur();
+        int largeur = jeu.grille.getLargeur();
         jPanel1.setLayout(new GridLayout(longueur, largeur));
         
         int lo, la = -1;
@@ -47,7 +59,8 @@ public class FenetreDemineur extends javax.swing.JFrame {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     CaseVue c = (CaseVue)e.getComponent();
-                    grille.revelerCase(c.coord_x, c.coord_y);
+                    jeu.grille.revelerCase(c.coord_x, c.coord_y);
+                    
                 }
 
                 @Override
@@ -68,10 +81,10 @@ public class FenetreDemineur extends javax.swing.JFrame {
                     
                 }
             });
-            grille.cases[lo][la].addObserver(j);
+            jeu.grille.cases[lo][la].addObserver(j);
             jPanel1.add(j);
+        }
     }
-}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,8 +96,9 @@ public class FenetreDemineur extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuNouvellePartie = new javax.swing.JMenu();
+        jMenuOptions = new javax.swing.JMenu();
+        jMenuQuitter = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,17 +113,29 @@ public class FenetreDemineur extends javax.swing.JFrame {
             .addGap(0, 307, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("File");
-
-        jMenuItem1.setText("Quitter");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+        jMenuNouvellePartie.setText("Nouvelle Partie");
+        jMenuNouvellePartie.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuNouvellePartieMouseClicked(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenuBar1.add(jMenuNouvellePartie);
 
-        jMenuBar1.add(jMenu1);
+        jMenuOptions.setText("Options");
+        jMenuOptions.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuOptionsMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenuOptions);
+
+        jMenuQuitter.setText("Quitter");
+        jMenuQuitter.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuQuitterMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenuQuitter);
 
         setJMenuBar(jMenuBar1);
 
@@ -127,9 +153,17 @@ public class FenetreDemineur extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuQuitterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuQuitterMouseClicked
         dispose();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jMenuQuitterMouseClicked
+
+    private void jMenuOptionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuOptionsMouseClicked
+        optionsFrame.setVisible(true);
+    }//GEN-LAST:event_jMenuOptionsMouseClicked
+
+    private void jMenuNouvellePartieMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuNouvellePartieMouseClicked
+        System.out.println("COUCOU");
+    }//GEN-LAST:event_jMenuNouvellePartieMouseClicked
 
     /**
      * @param args the command line arguments
@@ -167,9 +201,10 @@ public class FenetreDemineur extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenu jMenuNouvellePartie;
+    private javax.swing.JMenu jMenuOptions;
+    private javax.swing.JMenu jMenuQuitter;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

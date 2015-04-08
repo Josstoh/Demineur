@@ -55,4 +55,12 @@ public class Case  extends Observable{
     public boolean isRevelee() {
         return etat == EtatCase.REVELEE;
     }
+    
+    public void setFlaged() {
+        setEtat(EtatCase.DRAPEAU);
+    }
+    
+    public void setQuestionned() {
+        setEtat(EtatCase.INTEROGATION);
+    }
 }
