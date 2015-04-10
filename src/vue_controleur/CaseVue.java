@@ -10,7 +10,9 @@ package vue_controleur;
 
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
 import modele.Case;
 
 
@@ -47,6 +49,12 @@ public class CaseVue extends JPanel implements Observer{
     }
     
     private void setValue(int v) {
-        
+        if(v == 0) {
+            setBorder(new EtchedBorder());
+        }
+        else {
+            setBorder(new EtchedBorder());
+            add(new JLabel(Integer.toString(v)));
+        }
     }
 }

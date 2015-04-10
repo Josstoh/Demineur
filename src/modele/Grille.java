@@ -105,15 +105,46 @@ public class Grille {
 
 
   public void setVoisins() {
-      //pour toutes les cases sauf les bords
+      ArrayList<Case> list = new ArrayList<>();
+      int taille_voisin;
+      Case voisin[];
+      for(int x = 0; x < longueur; x++) {
+          for(int y = 0; y < largeur; y++) {
+              if(isInBounds(x, y-1))
+                list.add(cases[x][y-1]);
+              if(isInBounds(x, y+1))
+                list.add(cases[x][y+1]);
+              if(isInBounds(x+1, y))
+                list.add(cases[x+1][y]);
+              if(isInBounds(x-1, y))
+                list.add(cases[x-1][y]);
+              if(isInBounds(x-1, y-1))
+                list.add(cases[x-1][y-1]);
+              if(isInBounds(x+1, y+1))
+                list.add(cases[x+1][y+1]);
+              if(isInBounds(x+1, y-1))
+                list.add(cases[x+1][y-1]);
+              if(isInBounds(x-1, y+1))
+                list.add(cases[x-1][y+1]);
+              
+              voisin = new Case[list.size()];
+              for(int i = 0; i < list.size(); i++) {
+                  voisin[i] = list.get(i);
+              }
+              cases[x][y].setVoisins(voisin);
+              list.clear();
+          }
+      }
+/*
+    //pour toutes les cases sauf les bords
       Case[] voisins;
       for(int i = 1; i < (longueur - 1); i++) {
           for(int j = 1; j < (largeur - 1); j++) {
               voisins = new Case[4];
-              voisins[0] = cases[i-1][j-1];
-              voisins[1] = cases[i-1][j+1];
-              voisins[2] = cases[i+1][j-1];
-              voisins[3] = cases[i+1][j+1];
+              voisins[0] = cases[i][j-1];
+              voisins[1] = cases[i][j+1];
+              voisins[2] = cases[i+1][j];
+              voisins[3] = cases[i-1][j];
               cases[i][j].setVoisins(voisins);
           }
       }
@@ -167,7 +198,7 @@ public class Grille {
           voisins[2] = cases[longueur-1][i+1];
           cases[i][0].setVoisins(voisins);
       }
-      
+      */
   }
   
   private boolean isInBounds(int x, int y) {
@@ -179,18 +210,19 @@ public class Grille {
   public boolean revelerCase(int x, int y) {
       Case c = cases[x][y];
       if(c.isCachee()) {
+          if(c.getValeur() == 0)
+              revelerEnCascade(c);
           c.setEtat(EtatCase.REVELEE);
           //S'il y'a une bombe sur la case
           if(c.getValeur() == -1)
               return true;
-          if(c.getValeur() == 0)
-              revelerEnCascade(c);
+          
         }
         return false;
   }
 
   public void revelerEnCascade(Case c) {
-      if(c.isRevelee())
+      if(c.isRevelee() || c.getValeur() == -1)
           return;
       if(c.getValeur() != 0) {
           c.setEtat(EtatCase.REVELEE);
@@ -198,8 +230,9 @@ public class Grille {
       }
       if(c.getValeur() == 0) {
           Case[] v = c.getVoisins();
-          for (Case v1 : v) {
-              revelerEnCascade(v1);
+          c.setEtat(EtatCase.REVELEE);
+          for (int i = 0; i < v.length; i++) {
+              revelerEnCascade(v[i]);
             }
         }
     }

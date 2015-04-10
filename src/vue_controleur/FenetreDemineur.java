@@ -162,7 +162,7 @@ public class FenetreDemineur extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuOptionsMouseClicked
 
     private void jMenuNouvellePartieMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuNouvellePartieMouseClicked
-        System.out.println("COUCOU");
+        
     }//GEN-LAST:event_jMenuNouvellePartieMouseClicked
 
     /**

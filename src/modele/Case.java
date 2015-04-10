@@ -14,7 +14,7 @@ public class Case  extends Observable{
 
   
   public Case[] getVoisins() {
-    return null;
+    return voisins;
   }
 
   public void setVoisins(Case[] voisins) {
@@ -62,5 +62,8 @@ public class Case  extends Observable{
     
     public void setQuestionned() {
         setEtat(EtatCase.INTEROGATION);
+    }
+    public void setCachee() {
+        setEtat(EtatCase.CACHEE);
     }
 }
