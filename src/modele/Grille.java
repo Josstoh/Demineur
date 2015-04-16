@@ -135,70 +135,6 @@ public class Grille {
               list.clear();
           }
       }
-/*
-    //pour toutes les cases sauf les bords
-      Case[] voisins;
-      for(int i = 1; i < (longueur - 1); i++) {
-          for(int j = 1; j < (largeur - 1); j++) {
-              voisins = new Case[4];
-              voisins[0] = cases[i][j-1];
-              voisins[1] = cases[i][j+1];
-              voisins[2] = cases[i+1][j];
-              voisins[3] = cases[i-1][j];
-              cases[i][j].setVoisins(voisins);
-          }
-      }
-      
-      //les coins
-      voisins = new Case[2];
-      voisins[0] = cases[1][0];
-      voisins[1] = cases[0][1];
-      cases[0][0].setVoisins(voisins);
-      
-      voisins = new Case[2];
-      voisins[0] = cases[longueur-2][0];
-      voisins[1] = cases[longueur-1][1];
-      cases[longueur-1][0].setVoisins(voisins);
-      
-      voisins = new Case[2];
-      voisins[0] = cases[1][largeur-1];
-      voisins[1] = cases[0][largeur-2];
-      cases[0][largeur-1].setVoisins(voisins);
-      
-      voisins = new Case[2];
-      voisins[0] = cases[longueur-2][largeur-1];
-      voisins[1] = cases[longueur-1][largeur-2];
-      cases[longueur-1][largeur-1].setVoisins(voisins);
-      
-      //les bords
-      for(int i = 1; i < longueur - 1; i++) {
-          voisins = new Case[3];
-          voisins[0] = cases[i-1][0];
-          voisins[1] = cases[i][1];
-          voisins[2] = cases[i+1][0];
-          cases[i][0].setVoisins(voisins);
-          
-          voisins = new Case[3];
-          voisins[0] = cases[i-1][largeur-1];
-          voisins[1] = cases[i][largeur-2];
-          voisins[2] = cases[i+1][largeur-1];
-          cases[i][largeur-1].setVoisins(voisins);
-      }
-      
-      for(int i = 1; i < largeur - 1; i++) {
-          voisins = new Case[3];
-          voisins[0] = cases[0][i-1];
-          voisins[1] = cases[1][i];
-          voisins[2] = cases[0][i+1];
-          cases[i][0].setVoisins(voisins);
-          
-          voisins = new Case[3];
-          voisins[0] = cases[longueur-1][i-1];
-          voisins[1] = cases[longueur-2][i];
-          voisins[2] = cases[longueur-1][i+1];
-          cases[i][0].setVoisins(voisins);
-      }
-      */
   }
   
   private boolean isInBounds(int x, int y) {
@@ -209,7 +145,7 @@ public class Grille {
   
   public boolean revelerCase(int x, int y) {
       Case c = cases[x][y];
-      if(c.isCachee()) {
+      if(c.isCachee() || c.isQuestioned()) {
           if(c.getValeur() == 0)
               revelerEnCascade(c);
           c.setEtat(EtatCase.REVELEE);
@@ -222,7 +158,7 @@ public class Grille {
   }
 
   public void revelerEnCascade(Case c) {
-      if(c.isRevelee() || c.getValeur() == -1)
+      if(c.isRevelee() || c.getValeur() == -1 || c.isFalged())
           return;
       if(c.getValeur() != 0) {
           c.setEtat(EtatCase.REVELEE);
@@ -234,6 +170,21 @@ public class Grille {
           for (int i = 0; i < v.length; i++) {
               revelerEnCascade(v[i]);
             }
+        }
+    }
+  
+    public void questionnerCase(int x, int y) {
+        Case c = cases[x][y];
+        if(c.isQuestioned()) {
+            c.setCachee();
+            return;
+        }
+        if(c.isFalged()) {
+            c.setQuestionned();
+            return;
+        }
+        if(c.isCachee()) {
+            c.setFlaged();
         }
     }
 }

@@ -38,12 +38,13 @@ public class CaseVue extends JPanel implements Observer{
     }
     
     private void changerCase(Case c) {
+        removeAll();
         if(c.isRevelee()) {
             setValue(c.getValeur());
         } else if(c.isFalged()) {
-            
+            add(new JLabel("!"));
         } else if(c.isQuestioned()) {
-            
+            add(new JLabel("?"));
         }
             
     }

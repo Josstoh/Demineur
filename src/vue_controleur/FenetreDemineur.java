@@ -9,6 +9,7 @@ package vue_controleur;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 import modele.*;
@@ -59,7 +60,13 @@ public class FenetreDemineur extends javax.swing.JFrame {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     CaseVue c = (CaseVue)e.getComponent();
-                    jeu.grille.revelerCase(c.coord_x, c.coord_y);
+                    if(SwingUtilities.isLeftMouseButton(e)) {
+                        jeu.grille.revelerCase(c.coord_x, c.coord_y);
+                    }
+                    if(SwingUtilities.isRightMouseButton(e)) {
+                        jeu.grille.questionnerCase(c.coord_x, c.coord_y);
+                    }
+                   
                     
                 }
 
