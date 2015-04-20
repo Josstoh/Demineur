@@ -9,6 +9,7 @@ package vue_controleur;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
@@ -42,6 +43,11 @@ public class FenetreDemineur extends javax.swing.JFrame {
         pack();
     }
     
+    private void quitter()
+    {
+        dispose();
+    }
+    
     private void initCasesVue() {
         int longueur = jeu.grille.getLongueur();
         int largeur = jeu.grille.getLargeur();
@@ -59,19 +65,36 @@ public class FenetreDemineur extends javax.swing.JFrame {
 
                 @Override
                 public void mouseClicked(MouseEvent e) {
+                    
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
                     CaseVue c = (CaseVue)e.getComponent();
                     if(SwingUtilities.isLeftMouseButton(e)) {
-                        jeu.grille.revelerCase(c.coord_x, c.coord_y);
+                        boolean b = jeu.grille.revelerCase(c.coord_x, c.coord_y);
+                        // le joueur a découvert une bombe
+                        if(b)
+                        {
+                            int reponse = JOptionPane.showConfirmDialog(null, "Oh oh ! C'était une mine ! Vous avez perdu. Voulez-vous recommencez"
+                                    + " une partie ?","Perdu !",JOptionPane.YES_NO_OPTION);
+                            switch(reponse)
+                            {
+                                case JOptionPane.YES_OPTION:
+                                    jeu.setJeu();
+                                    resetVue();
+                                    break;
+                                case JOptionPane.NO_OPTION:
+                                    quitter();
+                                    break;
+                            }
+                        }
                     }
                     if(SwingUtilities.isRightMouseButton(e)) {
                         jeu.grille.questionnerCase(c.coord_x, c.coord_y);
                     }
                    
                     
-                }
-
-                @Override
-                public void mousePressed(MouseEvent e) {
                 }
 
                 @Override
@@ -169,7 +192,7 @@ public class FenetreDemineur extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuOptionsMouseClicked
 
     private void jMenuNouvellePartieMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuNouvellePartieMouseClicked
-        
+        jeu.setJeu();
     }//GEN-LAST:event_jMenuNouvellePartieMouseClicked
 
     /**

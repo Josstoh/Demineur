@@ -28,4 +28,6 @@ public class JeuDeDemineur {
     private void initGrille() {
         grille = new Grille(options.taille, options.taille, options.getNbBombes());
     }
+    
+    //TODO : gérer victoire et score avec un compteur de case non révélée par exemple
 }

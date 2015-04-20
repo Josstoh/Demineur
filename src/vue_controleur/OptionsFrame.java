@@ -20,7 +20,7 @@ public class OptionsFrame extends javax.swing.JDialog {
      * Creates new form OptionsFrame
      */
     public OptionsFrame(JFrame parent,OptionDeJeu o) {
-        super(parent);
+        super(parent,true);
         options = o;
         initComponents();
         setValeurTaille(o.taille);
