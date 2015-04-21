@@ -66,4 +66,9 @@ public class Case  extends Observable{
     public void setCachee() {
         setEtat(EtatCase.CACHEE);
     }
+    
+    public void revelerCase()
+    {
+        setEtat(EtatCase.REVELEE);
+    }
 }

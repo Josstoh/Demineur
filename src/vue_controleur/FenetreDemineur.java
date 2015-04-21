@@ -6,6 +6,7 @@
 
 package vue_controleur;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -22,6 +23,7 @@ import modele.*;
 public class FenetreDemineur extends javax.swing.JFrame {
     
     private OptionsFrame optionsFrame;
+    private Dimension tailleEcran;
     
     public JeuDeDemineur jeu;
     
@@ -29,6 +31,8 @@ public class FenetreDemineur extends javax.swing.JFrame {
      * Creates new form FenetreDemineur
      */
     public FenetreDemineur() {
+        tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        System.out.println(tailleEcran.height + " " + tailleEcran.width);
         jeu = new JeuDeDemineur();
         optionsFrame = new OptionsFrame(this, jeu.options);
 
@@ -42,7 +46,14 @@ public class FenetreDemineur extends javax.swing.JFrame {
         jPanel1.updateUI();
         pack();
     }
-    
+    private void rafraichirVue()
+    {
+        jPanel1.setMaximumSize(new Dimension(this.getWidth(),this.getHeight() ));
+        jPanel1.setMinimumSize(new Dimension(this.getWidth(),this.getHeight() ));
+        jPanel1.setPreferredSize(new Dimension(this.getWidth(),this.getHeight() ));
+        pack();
+        repaint();
+    }
     private void quitter()
     {
         dispose();
@@ -76,16 +87,14 @@ public class FenetreDemineur extends javax.swing.JFrame {
                         // le joueur a découvert une bombe
                         if(b)
                         {
+                            jeu.grille.toutReveler();
                             int reponse = JOptionPane.showConfirmDialog(null, "Oh oh ! C'était une mine ! Vous avez perdu. Voulez-vous recommencez"
-                                    + " une partie ?","Perdu !",JOptionPane.YES_NO_CANCEL_OPTION);
+                                    + " une partie ?","Perdu !",JOptionPane.YES_NO_OPTION);
                             switch(reponse)
                             {
                                 case JOptionPane.YES_OPTION:
                                     jeu.setJeu();
                                     resetVue();
-                                    break;
-                                case JOptionPane.NO_OPTION:
-                                    quitter();
                                     break;
                             }
                         }
@@ -99,18 +108,18 @@ public class FenetreDemineur extends javax.swing.JFrame {
                     }
                     if(jeu.victoire())
                     {
-                        int reponse = JOptionPane.showConfirmDialog(null, "Félicitations ! Vous avez bravé les mines ! Voulez-vous relancer une partie ?","C'est gagné !",JOptionPane.YES_NO_CANCEL_OPTION);
+                        jeu.grille.toutReveler();
+                        int reponse = JOptionPane.showConfirmDialog(null, "Félicitations ! Vous avez bravé les mines ! Voulez-vous relancer une partie ?","C'est gagné !",JOptionPane.YES_NO_OPTION);
                             switch(reponse)
                             {
                                 case JOptionPane.YES_OPTION:
                                     jeu.setJeu();
                                     resetVue();
                                     break;
-                                case JOptionPane.NO_OPTION:
-                                    quitter();
-                                    break;
                             }
                     }
+                    rafraichirVue();
+                    
                    
                     
                 }
@@ -132,6 +141,7 @@ public class FenetreDemineur extends javax.swing.JFrame {
             jeu.grille.cases[lo][la].addObserver(j);
             jPanel1.add(j);
         }
+        rafraichirVue();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -141,7 +151,6 @@ public class FenetreDemineur extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel2 = new javax.swing.JPanel();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 35), new java.awt.Dimension(0, 35), new java.awt.Dimension(0, 35));
@@ -155,6 +164,12 @@ public class FenetreDemineur extends javax.swing.JFrame {
         jMenuQuitter = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(tailleEcran);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
@@ -177,6 +192,11 @@ public class FenetreDemineur extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2);
 
+        jPanel1.setMaximumSize(new Dimension(this.getWidth(),this.getHeight() )
+        );
+        jPanel1.setMinimumSize(new Dimension(this.getWidth(),this.getHeight() ));
+        jPanel1.setPreferredSize(new Dimension(this.getWidth(),this.getHeight() ));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -194,6 +214,9 @@ public class FenetreDemineur extends javax.swing.JFrame {
         jMenuNouvellePartie.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuNouvellePartieMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuNouvellePartieMousePressed(evt);
             }
         });
         jMenuBar1.add(jMenuNouvellePartie);
@@ -229,7 +252,20 @@ public class FenetreDemineur extends javax.swing.JFrame {
 
     private void jMenuNouvellePartieMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuNouvellePartieMouseClicked
         jeu.setJeu();
+        resetVue();
     }//GEN-LAST:event_jMenuNouvellePartieMouseClicked
+
+    private void jMenuNouvellePartieMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuNouvellePartieMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuNouvellePartieMousePressed
+
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        System.out.println(tailleEcran.height + " " + tailleEcran.width);
+        System.out.println("jpanel1 " + jPanel1.getMaximumSize().height + " " + jPanel1.getMaximumSize().width);
+        rafraichirVue();
+        
+    }//GEN-LAST:event_formComponentResized
 
     /**
      * @param args the command line arguments

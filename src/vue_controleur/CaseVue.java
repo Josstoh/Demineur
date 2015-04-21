@@ -10,6 +10,7 @@ package vue_controleur;
 
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
@@ -51,12 +52,22 @@ public class CaseVue extends JPanel implements Observer{
     }
     
     private void setValue(int v) {
-        if(v == 0) {
-            setBorder(new EtchedBorder());
-        }
-        else {
-            setBorder(new EtchedBorder());
-            add(new JLabel(Integer.toString(v)));
+        switch(v)
+        {
+            case 0:
+                setBorder(new EtchedBorder());
+                break;
+            case -1:
+                setBorder(new EtchedBorder());
+                add(new JLabel(new ImageIcon( "images/mine.png")));
+                
+                break;
+            default:
+                setBorder(new EtchedBorder());
+                add(new JLabel(Integer.toString(v)));
+                
+                
+                            
         }
     }
 }

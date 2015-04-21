@@ -13,9 +13,9 @@ package modele;
 public class OptionDeJeu {
     public final static int DIFF_FACILE = 5;
     public final static int DIFF_MOYEN = 10;
-    public final static int DIFF_DIFFICILE = 15;
+    public final static int DIFF_DIFFICILE = 25;
     
-    public final static int TAILLE_10X10 = 10;
+    public final static int TAILLE_10X10 = 2;
     public final static int TAILLE_20X20 = 20;
     public final static int TAILLE_30X30 = 30;
     

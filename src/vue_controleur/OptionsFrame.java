@@ -21,10 +21,13 @@ public class OptionsFrame extends javax.swing.JDialog {
      */
     public OptionsFrame(JFrame parent,OptionDeJeu o) {
         super(parent,true);
+        
         options = o;
         initComponents();
         setValeurTaille(o.taille);
         setValeurDifficulte(o.difficulte);
+        setLocationRelativeTo(parent);
+        
     }
     
     private void setValeurTaille(int val) {
@@ -143,6 +146,7 @@ public class OptionsFrame extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(jRadioButton10x10.isSelected()) {
             options.taille = OptionDeJeu.TAILLE_10X10;
+            System.out.println("taille : " + options.taille);
         } else if(jRadioButton20x20.isSelected()) {
             options.taille = OptionDeJeu.TAILLE_20X20;
         } else if(jRadioButton30x30.isSelected()) {

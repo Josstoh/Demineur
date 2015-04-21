@@ -17,6 +17,17 @@ public class Grille {
    */
   public Case cases[][];
 
+  public Grille(int longueur, int largeur, int nbBombes) {
+      this.longueur = longueur;
+      this.largeur = largeur;
+      this.nbBombe = nbBombes;
+      
+      initCases();
+      placerBombes();
+      setVoisins();
+      initValeur();
+      
+  }
     public int getLongueur() {
         return longueur;
     }
@@ -30,17 +41,7 @@ public class Grille {
         return nbBombe;
     }
 
-  public Grille(int longueur, int largeur, int nbBombes) {
-      this.longueur = longueur;
-      this.largeur = largeur;
-      this.nbBombe = nbBombes;
-      
-      initCases();
-      placerBombes();
-      setVoisins();
-      initValeur();
-      
-  }
+  
 
   private void initCases() {
       cases = new Case[longueur][largeur];
@@ -201,6 +202,19 @@ public class Grille {
         }
        System.out.println("Nombre de cases cachées + flagé : " + nbr);
        return nbr;
+   }
+   
+   public void toutReveler()
+   {
+       for(Case[] c : cases)
+       {
+           for(Case ca : c)
+            {
+                if(!ca.isRevelee())
+                    ca.revelerCase();
+                            
+            }
+        }
    }
     
     
