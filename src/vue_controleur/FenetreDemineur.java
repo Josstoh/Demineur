@@ -77,7 +77,7 @@ public class FenetreDemineur extends javax.swing.JFrame {
                         if(b)
                         {
                             int reponse = JOptionPane.showConfirmDialog(null, "Oh oh ! C'était une mine ! Vous avez perdu. Voulez-vous recommencez"
-                                    + " une partie ?","Perdu !",JOptionPane.YES_NO_OPTION);
+                                    + " une partie ?","Perdu !",JOptionPane.YES_NO_CANCEL_OPTION);
                             switch(reponse)
                             {
                                 case JOptionPane.YES_OPTION:
@@ -89,9 +89,27 @@ public class FenetreDemineur extends javax.swing.JFrame {
                                     break;
                             }
                         }
+                        else
+                        {
+                            
+                        }
                     }
                     if(SwingUtilities.isRightMouseButton(e)) {
                         jeu.grille.questionnerCase(c.coord_x, c.coord_y);
+                    }
+                    if(jeu.victoire())
+                    {
+                        int reponse = JOptionPane.showConfirmDialog(null, "Félicitations ! Vous avez bravé les mines ! Voulez-vous relancer une partie ?","C'est gagné !",JOptionPane.YES_NO_CANCEL_OPTION);
+                            switch(reponse)
+                            {
+                                case JOptionPane.YES_OPTION:
+                                    jeu.setJeu();
+                                    resetVue();
+                                    break;
+                                case JOptionPane.NO_OPTION:
+                                    quitter();
+                                    break;
+                            }
                     }
                    
                     

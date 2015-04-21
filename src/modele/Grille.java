@@ -26,6 +26,7 @@ public class Grille {
     }
 
     public int getNbBombe() {
+        System.out.println("Nombre de bombes : " + nbBombe);
         return nbBombe;
     }
 
@@ -64,7 +65,6 @@ public class Grille {
           c = generateur.nextInt(caseLibre.size());
           caseLibre.get(c).setValeur(-1);
           caseLibre.remove(c);
-          nbBombeRestante--;
           if(caseLibre.isEmpty())
               break;
       }
@@ -187,4 +187,21 @@ public class Grille {
             c.setFlaged();
         }
     }
+
+   public int nbrCasesCacheesEtFlage()
+   {
+       int nbr = 0;
+       for(Case[] c : cases)
+       {
+           for(Case ca : c)
+            {
+                if(ca.isCachee() || ca.isFalged())
+                    nbr++;
+            }
+        }
+       System.out.println("Nombre de cases cachées + flagé : " + nbr);
+       return nbr;
+   }
+    
+    
 }
