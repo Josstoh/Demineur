@@ -29,5 +29,9 @@ public class JeuDeDemineur {
         grille = new Grille(options.taille, options.taille, options.getNbBombes());
     }
     
+    public boolean victoire()
+    {
+        return grille.nbrCasesCacheesEtFlage() == grille.getNbBombe();
+    }
     //TODO : gérer victoire et score avec un compteur de case non révélée par exemple
 }

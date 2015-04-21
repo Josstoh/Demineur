@@ -34,6 +34,7 @@ public class CaseVue extends JPanel implements Observer{
     public void update(Observable o, Object o1) {
         if(o instanceof Case) {
             changerCase((Case) o);
+            updateUI();
         }
     }
     
