@@ -33,7 +33,7 @@ public class FenetreDemineur extends javax.swing.JFrame {
         optionsFrame = new OptionsFrame(this, jeu.options);
 
         initComponents();
-        initCasesVue();
+        resetVue();
     }
     
     public void resetVue() {
@@ -123,7 +123,13 @@ public class FenetreDemineur extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        jPanel2 = new javax.swing.JPanel();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 35), new java.awt.Dimension(0, 35), new java.awt.Dimension(0, 35));
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(100, 0), new java.awt.Dimension(100, 0), new java.awt.Dimension(100, 0));
+        jFormattedTextField2 = new javax.swing.JFormattedTextField();
         jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuNouvellePartie = new javax.swing.JMenu();
@@ -131,17 +137,40 @@ public class FenetreDemineur extends javax.swing.JFrame {
         jMenuQuitter = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
+
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel2.add(filler2);
+
+        jFormattedTextField1.setEditable(false);
+        jFormattedTextField1.setFocusable(false);
+        jFormattedTextField1.setMaximumSize(new java.awt.Dimension(100, 30));
+        jFormattedTextField1.setMinimumSize(new java.awt.Dimension(100, 30));
+        jFormattedTextField1.setPreferredSize(new java.awt.Dimension(100, 30));
+        jPanel2.add(jFormattedTextField1);
+        jPanel2.add(filler1);
+
+        jFormattedTextField2.setEditable(false);
+        jFormattedTextField2.setFocusable(false);
+        jFormattedTextField2.setMaximumSize(new java.awt.Dimension(100, 30));
+        jFormattedTextField2.setMinimumSize(new java.awt.Dimension(100, 30));
+        jFormattedTextField2.setPreferredSize(new java.awt.Dimension(100, 30));
+        jPanel2.add(jFormattedTextField2);
+
+        getContentPane().add(jPanel2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 413, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 307, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        getContentPane().add(jPanel1);
 
         jMenuNouvellePartie.setText("Nouvelle Partie");
         jMenuNouvellePartie.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -168,17 +197,6 @@ public class FenetreDemineur extends javax.swing.JFrame {
         jMenuBar1.add(jMenuQuitter);
 
         setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -231,10 +249,15 @@ public class FenetreDemineur extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuNouvellePartie;
     private javax.swing.JMenu jMenuOptions;
     private javax.swing.JMenu jMenuQuitter;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
