@@ -243,6 +243,7 @@ public class FenetreDemineur extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuQuitterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuQuitterMouseClicked
+        jeu.cancelThread();
         dispose();
     }//GEN-LAST:event_jMenuQuitterMouseClicked
 
