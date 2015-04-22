@@ -37,7 +37,6 @@ public class Grille {
     }
 
     public int getNbBombe() {
-        System.out.println("Nombre de bombes : " + nbBombe);
         return nbBombe;
     }
 
@@ -200,7 +199,6 @@ public class Grille {
                     nbr++;
             }
         }
-       System.out.println("Nombre de cases cachées + flagé : " + nbr);
        return nbr;
    }
    
@@ -210,7 +208,7 @@ public class Grille {
        {
            for(Case ca : c)
             {
-                if(!ca.isRevelee())
+                if(ca.getValeur() == -1)
                     ca.revelerCase();
                             
             }

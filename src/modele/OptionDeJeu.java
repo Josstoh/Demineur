@@ -15,16 +15,17 @@ public class OptionDeJeu {
     public final static int DIFF_MOYEN = 10;
     public final static int DIFF_DIFFICILE = 25;
     
-    public final static int TAILLE_10X10 = 2;
+    public final static int TAILLE_10X10 = 10;
+    public final static int TAILLE_15X15 = 15;
     public final static int TAILLE_20X20 = 20;
-    public final static int TAILLE_30X30 = 30;
+    
     
     
     public int taille;      //0: 10x10  1: 20x20 2: 30x30
     public int difficulte;  //0: facile 1: moyen 2: difficile
     
     public OptionDeJeu() {
-        taille = TAILLE_20X20;
+        taille = TAILLE_15X15;
         difficulte = DIFF_MOYEN;
     }
     

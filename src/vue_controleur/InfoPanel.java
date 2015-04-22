@@ -24,6 +24,7 @@ public class InfoPanel extends JPanel implements Observer {
 
     public InfoPanel() {
         super();
+        setBorder(new javax.swing.border.SoftBevelBorder(5));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 35), new java.awt.Dimension(0, 35), new java.awt.Dimension(0, 35));
         nbBombe = new javax.swing.JFormattedTextField();

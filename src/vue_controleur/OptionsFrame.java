@@ -35,10 +35,10 @@ public class OptionsFrame extends javax.swing.JDialog {
             case OptionDeJeu.TAILLE_10X10: 
                 jRadioButton10x10.doClick();
             break;
-            case OptionDeJeu.TAILLE_20X20: 
+            case OptionDeJeu.TAILLE_15X15: 
                 jRadioButton20x20.doClick();
             break;
-            case OptionDeJeu.TAILLE_30X30: 
+            case OptionDeJeu.TAILLE_20X20: 
                 jRadioButton30x30.doClick();
             break;
         }
@@ -99,11 +99,11 @@ public class OptionsFrame extends javax.swing.JDialog {
         jPanel3.add(jRadioButton10x10);
 
         buttonGroupTaille.add(jRadioButton20x20);
-        jRadioButton20x20.setText("20x20");
+        jRadioButton20x20.setText("15x15");
         jPanel3.add(jRadioButton20x20);
 
         buttonGroupTaille.add(jRadioButton30x30);
-        jRadioButton30x30.setText("30x30");
+        jRadioButton30x30.setText("20x20");
         jPanel3.add(jRadioButton30x30);
 
         jPanel2.add(jPanel3);
@@ -146,11 +146,10 @@ public class OptionsFrame extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(jRadioButton10x10.isSelected()) {
             options.taille = OptionDeJeu.TAILLE_10X10;
-            System.out.println("taille : " + options.taille);
         } else if(jRadioButton20x20.isSelected()) {
-            options.taille = OptionDeJeu.TAILLE_20X20;
+            options.taille = OptionDeJeu.TAILLE_15X15;
         } else if(jRadioButton30x30.isSelected()) {
-            options.taille = OptionDeJeu.TAILLE_30X30;
+            options.taille = OptionDeJeu.TAILLE_20X20;
         }
         
         if(jRadioButtonFacile.isSelected()) {

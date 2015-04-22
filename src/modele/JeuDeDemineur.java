@@ -34,11 +34,15 @@ public class JeuDeDemineur extends Observable{
     }
     
     public boolean clicGauche(int x, int y) {
+        if(gameOver)
+            return false;
         gameOver = grille.revelerCase(x, y);
         return gameOver;
     }
     
     public void clicDroit(int x, int y) {
+        if(gameOver)
+            return;
         if(grille.cases[x][y].isCachee()) {
             if(nbDrapeauDisponible > 0) {
                 setNbDrapeauDisponible(nbDrapeauDisponible-1);

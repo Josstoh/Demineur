@@ -20,7 +20,6 @@ public class DemineurTimerTask extends TimerTask{
     public void run() {
         if(!jeu.isGameOver())
             jeu.setTemps(jeu.getTemps()+1);
-        //System.err.println("tmp = " + jeu.getTemps());
     }
     
 }

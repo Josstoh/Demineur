@@ -33,21 +33,20 @@ public class FenetreDemineur extends javax.swing.JFrame {
      */
     public FenetreDemineur() {
         tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        System.out.println(tailleEcran.height + " " + tailleEcran.width);
         jeu = new JeuDeDemineur();
         optionsFrame = new OptionsFrame(this, jeu.options);
         
         initComponents();
         InfoPanel infoPanel = new InfoPanel();
-        jPanel2.add(infoPanel);
+        panneauInfo.add(infoPanel);
         jeu.addObserver(infoPanel);
         resetVue();
     }
     
     public void resetVue() {
-        jPanel1.removeAll();
+        panneauJeu.removeAll();
         initCasesVue();
-        jPanel1.updateUI();
+        panneauJeu.updateUI();
     }
 
     private void quitter()
@@ -55,20 +54,10 @@ public class FenetreDemineur extends javax.swing.JFrame {
         dispose();
     }
 
-    private void rafraichirVue()
-    {
-        jPanel1.setMaximumSize(new Dimension(this.getWidth(),this.getHeight() ));
-        jPanel1.setMinimumSize(new Dimension(this.getWidth(),this.getHeight() ));
-        jPanel1.setPreferredSize(new Dimension(this.getWidth(),this.getHeight() ));
-        pack();
-        repaint();
-    }
-   
-  
     private void initCasesVue() {
         int longueur = jeu.grille.getLongueur();
         int largeur = jeu.grille.getLargeur();
-        jPanel1.setLayout(new GridLayout(longueur, largeur));
+        panneauJeu.setLayout(new GridLayout(longueur, largeur));
         
         int lo, la = -1;
         for(int i = 0; i < longueur*largeur; i++) {
@@ -146,8 +135,7 @@ public class FenetreDemineur extends javax.swing.JFrame {
                 }
             });
             jeu.grille.cases[lo][la].addObserver(j);
-            jPanel1.add(j);
-            System.out.println(j.getSize().getHeight() + " " + j.getSize().getWidth());
+            panneauJeu.add(j);
         }
     }
     /**
@@ -159,17 +147,19 @@ public class FenetreDemineur extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10));
+        panneauInfo = new javax.swing.JPanel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10));
+        panneauJeu = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenuNouvellePartie = new javax.swing.JMenu();
-        jMenuOptions = new javax.swing.JMenu();
-        jMenuQuitter = new javax.swing.JMenu();
+        jMenu = new javax.swing.JMenu();
+        itemNouvellePartie = new javax.swing.JMenuItem();
+        itemOptions = new javax.swing.JMenuItem();
+        itemQuitter = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(this.MAXIMIZED_BOTH);
         setMinimumSize(new java.awt.Dimension(600, 600));
-        setPreferredSize(new java.awt.Dimension(600, 600));
         setResizable(false);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
@@ -177,85 +167,83 @@ public class FenetreDemineur extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
+        getContentPane().add(filler2);
 
-        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
-        getContentPane().add(jPanel2);
+        panneauInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        panneauInfo.setLayout(new javax.swing.BoxLayout(panneauInfo, javax.swing.BoxLayout.LINE_AXIS));
+        getContentPane().add(panneauInfo);
+        getContentPane().add(filler1);
 
-        jPanel1.setMaximumSize(new java.awt.Dimension(875, 875));
-        jPanel1.setName(""); // NOI18N
+        panneauJeu.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        panneauJeu.setMaximumSize(new java.awt.Dimension(875, 875));
+        panneauJeu.setName(""); // NOI18N
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        javax.swing.GroupLayout panneauJeuLayout = new javax.swing.GroupLayout(panneauJeu);
+        panneauJeu.setLayout(panneauJeuLayout);
+        panneauJeuLayout.setHorizontalGroup(
+            panneauJeuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 396, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        panneauJeuLayout.setVerticalGroup(
+            panneauJeuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 249, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel1);
+        getContentPane().add(panneauJeu);
 
-        jMenuNouvellePartie.setText("Nouvelle Partie");
-        jMenuNouvellePartie.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jMenuNouvellePartie.setFocusable(false);
-        jMenuNouvellePartie.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuNouvellePartieMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jMenuNouvellePartieMousePressed(evt);
+        jMenu.setText("Jeu");
+        jMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jMenu.setFocusable(false);
+
+        itemNouvellePartie.setText("Nouvelle Partie");
+        itemNouvellePartie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemNouvellePartieActionPerformed(evt);
             }
         });
-        jMenuBar1.add(jMenuNouvellePartie);
+        jMenu.add(itemNouvellePartie);
 
-        jMenuOptions.setText("Options");
-        jMenuOptions.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuOptionsMouseClicked(evt);
+        itemOptions.setText("Opions");
+        itemOptions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemOptionsActionPerformed(evt);
             }
         });
-        jMenuBar1.add(jMenuOptions);
+        jMenu.add(itemOptions);
 
-        jMenuQuitter.setText("Quitter");
-        jMenuQuitter.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuQuitterMouseClicked(evt);
+        itemQuitter.setText("Quitter");
+        itemQuitter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemQuitterActionPerformed(evt);
             }
         });
-        jMenuBar1.add(jMenuQuitter);
+        jMenu.add(itemQuitter);
+
+        jMenuBar1.add(jMenu);
 
         setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuQuitterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuQuitterMouseClicked
-        jeu.cancelThread();
-        dispose();
-    }//GEN-LAST:event_jMenuQuitterMouseClicked
-
-    private void jMenuOptionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuOptionsMouseClicked
-        optionsFrame.setVisible(true);
-    }//GEN-LAST:event_jMenuOptionsMouseClicked
-
-    private void jMenuNouvellePartieMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuNouvellePartieMouseClicked
-       
-    }//GEN-LAST:event_jMenuNouvellePartieMouseClicked
-
-    private void jMenuNouvellePartieMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuNouvellePartieMousePressed
-        jeu.setJeu();
-        resetVue();
-    }//GEN-LAST:event_jMenuNouvellePartieMousePressed
-
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
         tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        System.out.println(tailleEcran.height + " " + tailleEcran.width);
-        System.out.println("jpanel1 " + jPanel1.getMaximumSize().height + " " + jPanel1.getMaximumSize().width);
-        //rafraichirVue();
         
     }//GEN-LAST:event_formComponentResized
+
+    private void itemNouvellePartieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemNouvellePartieActionPerformed
+        jeu.setJeu();
+        resetVue();
+    }//GEN-LAST:event_itemNouvellePartieActionPerformed
+
+    private void itemOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemOptionsActionPerformed
+        optionsFrame.setVisible(true);
+    }//GEN-LAST:event_itemOptionsActionPerformed
+
+    private void itemQuitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemQuitterActionPerformed
+        jeu.cancelThread();
+        dispose();
+    }//GEN-LAST:event_itemQuitterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,11 +281,14 @@ public class FenetreDemineur extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
+    private javax.swing.JMenuItem itemNouvellePartie;
+    private javax.swing.JMenuItem itemOptions;
+    private javax.swing.JMenuItem itemQuitter;
+    private javax.swing.JMenu jMenu;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenu jMenuNouvellePartie;
-    private javax.swing.JMenu jMenuOptions;
-    private javax.swing.JMenu jMenuQuitter;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel panneauInfo;
+    private javax.swing.JPanel panneauJeu;
     // End of variables declaration//GEN-END:variables
 }
