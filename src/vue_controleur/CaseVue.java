@@ -8,6 +8,7 @@ package vue_controleur;
 
 
 
+import java.awt.Dimension;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.ImageIcon;
@@ -29,6 +30,7 @@ public class CaseVue extends JPanel implements Observer{
         super();
         coord_x = x;
         coord_y = y;
+        
     }
 
     @Override
@@ -44,7 +46,7 @@ public class CaseVue extends JPanel implements Observer{
         if(c.isRevelee()) {
             setValue(c.getValeur());
         } else if(c.isFalged()) {
-            add(new JLabel("!"));
+            add(new JLabel(new ImageIcon( "images/drapeau.png")));
         } else if(c.isQuestioned()) {
             add(new JLabel("?"));
         }
@@ -60,11 +62,12 @@ public class CaseVue extends JPanel implements Observer{
             case -1:
                 setBorder(new EtchedBorder());
                 add(new JLabel(new ImageIcon( "images/mine.png")));
-                
                 break;
             default:
                 setBorder(new EtchedBorder());
-                add(new JLabel(Integer.toString(v)));
+                JLabel l = new JLabel(Integer.toString(v));
+                l.setSize(35, 35);
+                add(l);
                 
                 
                             

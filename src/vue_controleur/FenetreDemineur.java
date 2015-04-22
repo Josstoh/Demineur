@@ -46,14 +46,6 @@ public class FenetreDemineur extends javax.swing.JFrame {
         jPanel1.updateUI();
         pack();
     }
-    private void rafraichirVue()
-    {
-        jPanel1.setMaximumSize(new Dimension(this.getWidth(),this.getHeight() ));
-        jPanel1.setMinimumSize(new Dimension(this.getWidth(),this.getHeight() ));
-        jPanel1.setPreferredSize(new Dimension(this.getWidth(),this.getHeight() ));
-        pack();
-        repaint();
-    }
     private void quitter()
     {
         dispose();
@@ -71,7 +63,8 @@ public class FenetreDemineur extends javax.swing.JFrame {
                 la++;
             CaseVue j = new CaseVue(lo, la);
             j.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
-            //j.setBackground(Color.LIGHT_GRAY);
+            j.setSize(new Dimension(35,35));
+            j.setMaximumSize(new Dimension(35,35));
             j.addMouseListener(new MouseListener() {
 
                 @Override
@@ -118,7 +111,6 @@ public class FenetreDemineur extends javax.swing.JFrame {
                                     break;
                             }
                     }
-                    rafraichirVue();
                     
                    
                     
@@ -140,8 +132,8 @@ public class FenetreDemineur extends javax.swing.JFrame {
             });
             jeu.grille.cases[lo][la].addObserver(j);
             jPanel1.add(j);
+            System.out.println(j.getSize().getHeight() + " " + j.getSize().getWidth());
         }
-        rafraichirVue();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -164,9 +156,10 @@ public class FenetreDemineur extends javax.swing.JFrame {
         jMenuQuitter = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(tailleEcran);
+        setExtendedState(this.MAXIMIZED_BOTH);
         setMinimumSize(new java.awt.Dimension(600, 600));
-        setPreferredSize(tailleEcran);
+        setPreferredSize(new java.awt.Dimension(600, 600));
+        setResizable(false);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);
@@ -194,10 +187,8 @@ public class FenetreDemineur extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2);
 
-        jPanel1.setMaximumSize(new Dimension(this.getWidth(),this.getHeight() )
-        );
-        jPanel1.setMinimumSize(new Dimension(this.getWidth(),this.getHeight() ));
-        jPanel1.setPreferredSize(new Dimension(this.getWidth(),this.getHeight() ));
+        jPanel1.setMaximumSize(new java.awt.Dimension(875, 875));
+        jPanel1.setName(""); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -213,6 +204,8 @@ public class FenetreDemineur extends javax.swing.JFrame {
         getContentPane().add(jPanel1);
 
         jMenuNouvellePartie.setText("Nouvelle Partie");
+        jMenuNouvellePartie.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jMenuNouvellePartie.setFocusable(false);
         jMenuNouvellePartie.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuNouvellePartieMouseClicked(evt);
@@ -254,12 +247,12 @@ public class FenetreDemineur extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuOptionsMouseClicked
 
     private void jMenuNouvellePartieMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuNouvellePartieMouseClicked
-        jeu.setJeu();
-        resetVue();
+       
     }//GEN-LAST:event_jMenuNouvellePartieMouseClicked
 
     private void jMenuNouvellePartieMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuNouvellePartieMousePressed
-        // TODO add your handling code here:
+        jeu.setJeu();
+        resetVue();
     }//GEN-LAST:event_jMenuNouvellePartieMousePressed
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
