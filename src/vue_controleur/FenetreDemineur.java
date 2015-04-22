@@ -165,6 +165,8 @@ public class FenetreDemineur extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(tailleEcran);
+        setMinimumSize(new java.awt.Dimension(600, 600));
+        setPreferredSize(tailleEcran);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);
@@ -264,7 +266,7 @@ public class FenetreDemineur extends javax.swing.JFrame {
         tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         System.out.println(tailleEcran.height + " " + tailleEcran.width);
         System.out.println("jpanel1 " + jPanel1.getMaximumSize().height + " " + jPanel1.getMaximumSize().width);
-        rafraichirVue();
+        //rafraichirVue();
         
     }//GEN-LAST:event_formComponentResized
 
