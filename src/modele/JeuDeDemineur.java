@@ -19,6 +19,7 @@ public class JeuDeDemineur extends Observable{
     private int temps;
     private Timer t;
     private int nbDrapeauDisponible;
+    private boolean gameOver;
     //TODO ajouter le temps
     
     public JeuDeDemineur() {
@@ -33,7 +34,8 @@ public class JeuDeDemineur extends Observable{
     }
     
     public boolean clicGauche(int x, int y) {
-        return grille.revelerCase(x, y);
+        gameOver = grille.revelerCase(x, y);
+        return gameOver;
     }
     
     public void clicDroit(int x, int y) {
@@ -74,6 +76,7 @@ public class JeuDeDemineur extends Observable{
         
         setNbDrapeauDisponible(grille.getNbBombe());
         setTemps(0);
+        gameOver = false;
     }
     
     private void initGrille() {
@@ -82,11 +85,21 @@ public class JeuDeDemineur extends Observable{
     
     public boolean victoire()
     {
-        return grille.nbrCasesCacheesEtFlage() == grille.getNbBombe();
+        boolean b = grille.nbrCasesCacheesEtFlage() == grille.getNbBombe();
+        if(!gameOver && b)
+            gameOver = true;
+        return b;
     }
     //TODO : gérer victoire et score avec un compteur de case non révélée par exemple
     
     public void cancelThread() {
         t.cancel();
+    }
+    
+    public void setGameOver() {
+        gameOver = true;
+    }
+    public boolean isGameOver() {
+        return gameOver;
     }
 }
