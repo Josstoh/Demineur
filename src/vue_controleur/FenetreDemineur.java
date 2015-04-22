@@ -35,8 +35,11 @@ public class FenetreDemineur extends javax.swing.JFrame {
         System.out.println(tailleEcran.height + " " + tailleEcran.width);
         jeu = new JeuDeDemineur();
         optionsFrame = new OptionsFrame(this, jeu.options);
-
+        
         initComponents();
+        InfoPanel infoPanel = new InfoPanel();
+        jPanel2.add(infoPanel);
+        jeu.addObserver(infoPanel);
         resetVue();
     }
     
@@ -54,10 +57,7 @@ public class FenetreDemineur extends javax.swing.JFrame {
         pack();
         repaint();
     }
-    private void quitter()
-    {
-        dispose();
-    }
+   
     
     private void initCasesVue() {
         int longueur = jeu.grille.getLongueur();
@@ -83,7 +83,7 @@ public class FenetreDemineur extends javax.swing.JFrame {
                 public void mousePressed(MouseEvent e) {
                     CaseVue c = (CaseVue)e.getComponent();
                     if(SwingUtilities.isLeftMouseButton(e)) {
-                        boolean b = jeu.grille.revelerCase(c.coord_x, c.coord_y);
+                        boolean b = jeu.clicGauche(c.coord_x, c.coord_y);
                         // le joueur a découvert une bombe
                         if(b)
                         {
@@ -104,7 +104,7 @@ public class FenetreDemineur extends javax.swing.JFrame {
                         }
                     }
                     if(SwingUtilities.isRightMouseButton(e)) {
-                        jeu.grille.questionnerCase(c.coord_x, c.coord_y);
+                        jeu.clicDroit(c.coord_x, c.coord_y);
                     }
                     if(jeu.victoire())
                     {
@@ -153,10 +153,6 @@ public class FenetreDemineur extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 35), new java.awt.Dimension(0, 35), new java.awt.Dimension(0, 35));
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(100, 0), new java.awt.Dimension(100, 0), new java.awt.Dimension(100, 0));
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
         jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuNouvellePartie = new javax.swing.JMenu();
@@ -173,23 +169,6 @@ public class FenetreDemineur extends javax.swing.JFrame {
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
-        jPanel2.add(filler2);
-
-        jFormattedTextField1.setEditable(false);
-        jFormattedTextField1.setFocusable(false);
-        jFormattedTextField1.setMaximumSize(new java.awt.Dimension(100, 30));
-        jFormattedTextField1.setMinimumSize(new java.awt.Dimension(100, 30));
-        jFormattedTextField1.setPreferredSize(new java.awt.Dimension(100, 30));
-        jPanel2.add(jFormattedTextField1);
-        jPanel2.add(filler1);
-
-        jFormattedTextField2.setEditable(false);
-        jFormattedTextField2.setFocusable(false);
-        jFormattedTextField2.setMaximumSize(new java.awt.Dimension(100, 30));
-        jFormattedTextField2.setMinimumSize(new java.awt.Dimension(100, 30));
-        jFormattedTextField2.setPreferredSize(new java.awt.Dimension(100, 30));
-        jPanel2.add(jFormattedTextField2);
-
         getContentPane().add(jPanel2);
 
         jPanel1.setMaximumSize(new Dimension(this.getWidth(),this.getHeight() )
@@ -304,10 +283,6 @@ public class FenetreDemineur extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler2;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuNouvellePartie;
     private javax.swing.JMenu jMenuOptions;

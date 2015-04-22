@@ -18,6 +18,7 @@ public class JeuDeDemineur extends Observable{
     public Grille grille;
     private int temps;
     private Timer t;
+    private int nbDrapeauDisponible;
     //TODO ajouter le temps
     
     public JeuDeDemineur() {
@@ -30,9 +31,36 @@ public class JeuDeDemineur extends Observable{
         setJeu();
         
     }
+    
+    public boolean clicGauche(int x, int y) {
+        return grille.revelerCase(x, y);
+    }
+    
+    public void clicDroit(int x, int y) {
+        if(grille.cases[x][y].isCachee()) {
+            if(nbDrapeauDisponible > 0) {
+                setNbDrapeauDisponible(nbDrapeauDisponible-1);
+                grille.questionnerCase(x, y);
+            }
+        }
+        else if(grille.cases[x][y].isFalged()) {
+            setNbDrapeauDisponible(nbDrapeauDisponible+1);
+            grille.questionnerCase(x, y);
+        } else grille.questionnerCase(x, y);
+    }
 
     public int getTemps() {
         return temps;
+    }
+
+    public int getNbDrapeauDisponible() {
+        return nbDrapeauDisponible;
+    }
+
+    public void setNbDrapeauDisponible(int nbDrapeauDisponible) {
+        this.nbDrapeauDisponible = nbDrapeauDisponible;
+        setChanged();
+        notifyObservers();
     }
 
     public void setTemps(int temps) {
@@ -42,11 +70,12 @@ public class JeuDeDemineur extends Observable{
     }
     
     final public void setJeu() {
-        // on met le score et le temps a 0
         initGrille();
-
-        temps = 0;
+        
+        setNbDrapeauDisponible(grille.getNbBombe());
+        setTemps(0);
     }
+    
     private void initGrille() {
         grille = new Grille(options.taille, options.taille, options.getNbBombes());
     }
