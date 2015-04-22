@@ -158,7 +158,7 @@ public class Grille {
         return false;
   }
 
-  public void revelerEnCascade(Case c) {
+  private void revelerEnCascade(Case c) {
       if(c.isRevelee() || c.getValeur() == -1 || c.isFalged())
           return;
       if(c.getValeur() != 0) {

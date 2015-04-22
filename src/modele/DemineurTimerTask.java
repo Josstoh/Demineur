@@ -18,8 +18,9 @@ public class DemineurTimerTask extends TimerTask{
 
     @Override
     public void run() {
-        jeu.setTemps(jeu.getTemps()+1);
-        System.err.println("tmp = " + jeu.getTemps());
+        if(!jeu.isGameOver())
+            jeu.setTemps(jeu.getTemps()+1);
+        //System.err.println("tmp = " + jeu.getTemps());
     }
     
 }

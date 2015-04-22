@@ -18,6 +18,8 @@ public class JeuDeDemineur extends Observable{
     public Grille grille;
     private int temps;
     private Timer t;
+    private int nbDrapeauDisponible;
+    private boolean gameOver;
     //TODO ajouter le temps
     
     public JeuDeDemineur() {
@@ -30,9 +32,37 @@ public class JeuDeDemineur extends Observable{
         setJeu();
         
     }
+    
+    public boolean clicGauche(int x, int y) {
+        gameOver = grille.revelerCase(x, y);
+        return gameOver;
+    }
+    
+    public void clicDroit(int x, int y) {
+        if(grille.cases[x][y].isCachee()) {
+            if(nbDrapeauDisponible > 0) {
+                setNbDrapeauDisponible(nbDrapeauDisponible-1);
+                grille.questionnerCase(x, y);
+            }
+        }
+        else if(grille.cases[x][y].isFalged()) {
+            setNbDrapeauDisponible(nbDrapeauDisponible+1);
+            grille.questionnerCase(x, y);
+        } else grille.questionnerCase(x, y);
+    }
 
     public int getTemps() {
         return temps;
+    }
+
+    public int getNbDrapeauDisponible() {
+        return nbDrapeauDisponible;
+    }
+
+    public void setNbDrapeauDisponible(int nbDrapeauDisponible) {
+        this.nbDrapeauDisponible = nbDrapeauDisponible;
+        setChanged();
+        notifyObservers();
     }
 
     public void setTemps(int temps) {
@@ -42,22 +72,34 @@ public class JeuDeDemineur extends Observable{
     }
     
     final public void setJeu() {
-        // on met le score et le temps a 0
         initGrille();
-
-        temps = 0;
+        
+        setNbDrapeauDisponible(grille.getNbBombe());
+        setTemps(0);
+        gameOver = false;
     }
+    
     private void initGrille() {
         grille = new Grille(options.taille, options.taille, options.getNbBombes());
     }
     
     public boolean victoire()
     {
-        return grille.nbrCasesCacheesEtFlage() == grille.getNbBombe();
+        boolean b = grille.nbrCasesCacheesEtFlage() == grille.getNbBombe();
+        if(!gameOver && b)
+            gameOver = true;
+        return b;
     }
     //TODO : gérer victoire et score avec un compteur de case non révélée par exemple
     
     public void cancelThread() {
         t.cancel();
+    }
+    
+    public void setGameOver() {
+        gameOver = true;
+    }
+    public boolean isGameOver() {
+        return gameOver;
     }
 }
